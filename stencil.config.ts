@@ -1,4 +1,5 @@
 import { Config } from '@stencil/core';
+import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'stencil-storybook-template',
@@ -18,6 +19,7 @@ export const config: Config = {
       type: 'www',
     },
   ],
+  plugins: [sass()],
   testing: {
     browserHeadless: 'new',
   },
