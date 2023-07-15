@@ -1,0 +1,60 @@
+{
+  "name": "stencil-storybook-template",
+  "version": "0.0.1",
+  "description": "Stencil Component Starter",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/stencil-storybook-template/stencil-storybook-template.esm.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ionic-team/stencil-component-starter.git"
+  },
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build:stencil": "stencil build --docs",
+    "build:storybook": "storybook build",
+    "lint": "npm run lint:js && npm run lint:ts && npm run lint:tsx && npm run lint:scss",
+    "lint:js": "eslint ./ --ext .js",
+    "lint:ts": "eslint ./ --ext .ts",
+    "lint:tsx": "eslint ./ --ext .tsx",
+    "lint:scss": "stylelint '**/*.scss'",
+    "start": "npm-run-all --parallel start:stencil start:storybook",
+    "start:stencil": "stencil build --watch",
+    "start:stencil:standalone": "stencil build --dev --watch --serve",
+    "start:storybook": "storybook dev -p 6006",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "dependencies": {
+    "@stencil/core": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.22.9",
+    "@storybook/addon-essentials": "^7.0.27",
+    "@storybook/addon-interactions": "^7.0.27",
+    "@storybook/addon-links": "^7.0.27",
+    "@storybook/blocks": "^7.0.27",
+    "@storybook/html": "^7.0.27",
+    "@storybook/html-webpack5": "^7.0.27",
+    "@storybook/testing-library": "^0.0.14-next.2",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.11",
+    "jest": "^27.5.1",
+    "jest-cli": "^27.5.1",
+    "npm-run-all": "^4.1.5",
+    "puppeteer": "^20.7.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.0.27"
+  },
+  "license": "MIT"
+}
