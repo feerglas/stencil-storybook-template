@@ -1,10 +1,14 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Decorator } from '@storybook/html';
+import events from './my-component.events';
 import readme from './readme.md';
 
 export default {
   decorators: [withActions as Decorator],
   parameters: {
+    actions: {
+      handles: [events.clicked],
+    },
     docs: {
       extractComponentDescription: (): any => readme,
     },
