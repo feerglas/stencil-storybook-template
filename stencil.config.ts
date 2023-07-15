@@ -4,8 +4,8 @@ export const config: Config = {
   namespace: 'stencil-storybook-template',
   outputTargets: [
     {
-      type: 'dist',
       esmLoaderPath: '../loader',
+      type: 'dist',
     },
     {
       type: 'dist-custom-elements',
@@ -14,11 +14,11 @@ export const config: Config = {
       type: 'docs-readme',
     },
     {
+      serviceWorker: null,
       type: 'www',
-      serviceWorker: null, // disable service workers
     },
   ],
   testing: {
-    browserHeadless: "new",
+    browserHeadless: 'new',
   },
 };
