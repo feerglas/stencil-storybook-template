@@ -1,5 +1,6 @@
-/** @type { import('@storybook/html-webpack5').StorybookConfig } */
-const config = {
+import type { StorybookConfig } from '@storybook/html-webpack5';
+
+const config: StorybookConfig = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
