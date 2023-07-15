@@ -3,11 +3,11 @@ import {
   h,
   Prop,
 } from '@stencil/core';
-import { format } from '../../utils/utils';
+import format from '../../utils/utils';
 
 @Component({
   shadow: true,
-  styleUrl: 'my-component.css',
+  styleUrl: 'my-component.scss',
   tag: 'my-component',
 })
 export class MyComponent {
@@ -32,6 +32,8 @@ export class MyComponent {
   }
 
   public render(): HTMLDivElement {
-    return <div>Hello, World! I'm {this._getText()}</div>;
+    return <div class='wrapper'>
+      <p>Hello, World! I'm <span class='name'>{this._getText()}</span></p>
+    </div>;
   }
 }
