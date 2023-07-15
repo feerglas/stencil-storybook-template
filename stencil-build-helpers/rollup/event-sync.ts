@@ -1,3 +1,20 @@
+/**
+ * Problem:
+ * It's recommended to use @Event decorator to dispatch
+ * custom events in stencil. In decorators at stencil,
+ * variables are not allowed. Since we want to use
+ * the events in the .stories files as well, we would
+ * like to store the event names in variables, which
+ * we then can consume in the stories to not have
+ * reduntant code.
+ *
+ * Solution:
+ * This script iterates through all component files,
+ * parses the typescript code and searches for the
+ * @Event decorator. It then extract all event names
+ * to a dedicated file my-component.events.ts.
+ */
+
 import {
   basename,
   dirname,
