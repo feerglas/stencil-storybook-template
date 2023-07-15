@@ -13,3 +13,12 @@ const preview = {
 };
 
 export default preview;
+
+/**
+ * controls: {
+ *     matchers: {
+ *       color: /(background|color)$/i,
+ *       date: /Date$/,
+ *     },
+ *   },
+ */
