@@ -1,5 +1,6 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
+import eventSync from './stencil-build-helpers/rollup/event-sync';
 
 export const config: Config = {
   namespace: 'stencil-storybook-template',
@@ -20,6 +21,9 @@ export const config: Config = {
     },
   ],
   plugins: [sass()],
+  rollupPlugins: {
+    before: [eventSync()],
+  },
   testing: {
     browserHeadless: 'new',
   },
