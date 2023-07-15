@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface MyComponent {
         /**
-          * The first name
+          * Create a meaningful description for the properties/attributes. This will be automatically rendered to the documentation.
          */
         "first": string;
         /**
@@ -19,7 +19,15 @@ export namespace Components {
           * The middle name
          */
         "middle": string;
+        /**
+          * Create a meaningful description for the method. This will be automatically rendered to the documentation.
+         */
+        "sampleMethod": () => Promise<void>;
     }
+}
+export interface MyComponentCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMyComponentElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -35,7 +43,7 @@ declare global {
 declare namespace LocalJSX {
     interface MyComponent {
         /**
-          * The first name
+          * Create a meaningful description for the properties/attributes. This will be automatically rendered to the documentation.
          */
         "first"?: string;
         /**
@@ -46,6 +54,10 @@ declare namespace LocalJSX {
           * The middle name
          */
         "middle"?: string;
+        /**
+          * Create a meaningful description for the event. This will be automatically rendered to the documentation.
+         */
+        "onMy-component_button-clicked"?: (event: MyComponentCustomEvent<void>) => void;
     }
     interface IntrinsicElements {
         "my-component": MyComponent;
