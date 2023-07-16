@@ -21,7 +21,7 @@ To start the dev environment, use
 
 ```
 npm start
-````
+```
 
 Note:
 
@@ -38,12 +38,12 @@ To run e2e and unit tests, run the command
 npm test
 ```
 
-### Extras
+## Extras
 
-#### Event name extraction
+### Event name extraction
 
 The project contains a custom build mechanism to extract event names from the components, which stores them in a separate file for every component. See `/stencil-build-helpers/rollup/event-sync.ts` for info.
 
-#### Boilerplate
+### Generate new components
 
 The project contains a custom boilerplate to bootsrap an new component. Use `npm run generate` to create a new component.
