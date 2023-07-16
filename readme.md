@@ -20,7 +20,7 @@ npm start
 
 Note:
 
-the start command runs `start:stencil` and `start:storybook` in parallel. If you start it for the first time, it might fail. The reason being, that storybook will access the stencil build artefact, which might not yet be ready. If you encounter this, just shut down the server and run the command again.
+the start command runs `start:stencil` and `start:storybook` in parallel. If you start it for the first time, it might fail. The reason being, that storybook will access the stencil build artefacts, which might not yet be ready. If you encounter this, just shut down the server and run `npm run start:stencil` before.
 
 ## Linting
 
