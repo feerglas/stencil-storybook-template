@@ -6,6 +6,9 @@ export const config: Config = {
   namespace: 'stencil-storybook-template',
   outputTargets: [
     {
+      type: 'dist-hydrate-script',
+    },
+    {
       esmLoaderPath: '../loader',
       type: 'dist',
     },
@@ -14,6 +17,10 @@ export const config: Config = {
     },
     {
       type: 'docs-readme',
+    },
+    {
+      file: './dist/documentation/jsonDocs.json',
+      type: 'docs-json',
     },
     {
       serviceWorker: null,
