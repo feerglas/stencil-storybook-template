@@ -1,6 +1,9 @@
 # stencil-storybook-template
 
-A starting point to build webcomponents with stencil, including storybok
+A a template for building webcomponents with stencil, including storybok.
+
+- Write components and stories in typescript
+- Fully compatible with live-reloading / HMR
 
 ## Configurations
 
