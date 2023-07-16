@@ -33,5 +33,12 @@ export const config: Config = {
   },
   testing: {
     browserHeadless: 'new',
+    testPathIgnorePatterns: [
+      '/convenience/generate-component/boilerplate/',
+      '/dist/',
+      'hydrate',
+      'loader',
+      'node_modules',
+    ],
   },
 };
