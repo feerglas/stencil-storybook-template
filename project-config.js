@@ -5,6 +5,8 @@ const config = {
    * provided the correct component prefix for your new component.
    * Additionally, we make sure to only scan your components from event-names
    * by using this prefix.
+   * Example: if you want to name your components abc-button, then
+   * abc is your prefix.
    */
   componentPrefix: 'my',
 
