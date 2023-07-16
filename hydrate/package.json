@@ -1,6 +1,6 @@
 {
   "name": "stencil-storybook-template/hydrate",
-  "description": "StencilStorybookTemplate component hydration app.",
+  "description": "MyWebcomponentsBundle component hydration app.",
   "main": "index.js",
   "types": "index.d.ts"
 }
