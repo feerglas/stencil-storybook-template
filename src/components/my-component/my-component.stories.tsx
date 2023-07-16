@@ -1,7 +1,8 @@
+// @ts-expect-error: File could not be found
+import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Decorator } from '@storybook/html';
 import events from './my-component.events';
-import readme from './readme.md';
 
 export default {
   decorators: [withActions as Decorator],
@@ -17,9 +18,42 @@ export default {
   title: 'Components/MyComponent',
 };
 
-const template = (args: any): any => `<my-component first-name="${args.firstName}"></my-component>`;
+// --- Template
+const template = (args: any): string => `<my-component variant="${args.variant}" first-name="${args.firstName}"></my-component>`;
 
-export const example = template.bind({});
-example.args = {
-  firstName: 'Winnie',
+// --- Arg types
+
+const text = 'text';
+
+const variant = {
+  control: {
+    type: 'select',
+  },
+  options: [
+    'primary',
+    'secondary',
+  ],
 };
+
+const argTypes = {
+  firstName: text,
+  variant,
+};
+
+// --- Stories
+export const defaultVariant = template.bind({});
+export const secondary = template.bind({});
+
+defaultVariant.argTypes = argTypes;
+secondary.argTypes = argTypes;
+
+defaultVariant.args = {
+  firstName: 'Winnie',
+  variant: 'primary',
+};
+
+secondary.args = {
+  firstName: 'Winnie',
+  variant: 'secondary',
+};
+
