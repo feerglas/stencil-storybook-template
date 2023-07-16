@@ -1,9 +1,10 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import eventSync from './stencil-build-helpers/rollup/event-sync';
+import projectConfig from './project-config';
 
 export const config: Config = {
-  namespace: 'stencil-storybook-template',
+  namespace: projectConfig.namespace,
   outputTargets: [
     {
       type: 'dist-hydrate-script',
