@@ -1,3 +1,3 @@
-export interface Interface__nameUpperCase__Attributes {
-  someInterface: 'opt1' | 'opt2';
+export interface Interface__nameUpperCase__ {
+  variant: 'primary' | 'secondary';
 }
