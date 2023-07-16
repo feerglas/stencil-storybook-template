@@ -8,7 +8,7 @@ import {
   Method,
   Prop,
 } from '@stencil/core';
-import { InterfaceMyComponent } from './my-component.d';
+import { InterfaceMyComponent } from './my-component.custom.d';
 
 @Component({
   shadow: true,
