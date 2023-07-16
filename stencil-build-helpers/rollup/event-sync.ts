@@ -12,7 +12,8 @@
  * This script iterates through all component files,
  * parses the typescript code and searches for the
  * @Event decorator. It then extract all event names
- * to a dedicated file my-component.events.ts.
+ * to a dedicated file my-component.events.ts
+ * (assuming your component is named my-component.tsx).
  */
 
 import {
@@ -29,10 +30,11 @@ import {
   writeFileSync,
 } from 'fs';
 import * as ts from 'typescript';
+import projectConfig from '../../project-config';
 
 const config = {
   componentsDirectory: '../../src/components',
-  componentsPrefix: 'my',
+  componentsPrefix: projectConfig.componentPrefix,
 };
 
 type EventDecorator = { name: string; eventName: string };
