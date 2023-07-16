@@ -7,13 +7,6 @@ A starting point to build webcomponents with stencil, including storybok
 Since this is a template, you should adapt the `project-config.js`. See
 that file for more information.
 
-### event sync
-
-In `/stencil-build-helpers/rollup/event-sync.ts` search for the `config`
-object at the top of the file. Change the `componentsPrefix` to an appropriate
-string. For example, if you name your components like `xyz-button`, then you
-should put `xyz` as `componentsPrefix`.
-
 ## Installation
 
 Use the node version specified in `.nvmrc`. Then do
