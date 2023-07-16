@@ -23,10 +23,6 @@ To start the dev environment, use
 npm start
 ```
 
-Note:
-
-the start command runs `start:stencil` and `start:storybook` in parallel. If you start it for the first time, it might fail. The reason being, that storybook will access the stencil build artefacts, which might not yet be ready. If you encounter this, just shut down the server and run `npm run start:stencil` before.
-
 ## Linting
 
 The linting script is automatically executed when you use `git push` (via pre-push hook). For convenience, make sure you have eslint and stylelint configured in your code editor.
