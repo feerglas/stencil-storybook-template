@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/html-webpack5';
+import type { StorybookConfig } from '@storybook/html-vite';
 
 const config: StorybookConfig = {
   addons: [
@@ -11,9 +11,13 @@ const config: StorybookConfig = {
     autodocs: 'tag',
   },
   framework: {
-    name: '@storybook/html-webpack5',
+    name: '@storybook/html-vite',
     options: {},
   },
+  staticDirs: [
+    '../dist',
+    '../loader',
+  ],
   stories: [
     '../src/**/*.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
