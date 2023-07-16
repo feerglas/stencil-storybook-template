@@ -5700,7 +5700,7 @@ const cmpModules = new Map, getModule = e => {
  e["s-p"] = [], e["s-rc"] = [], addHostEventListeners(e, o, t.$listeners$), hostRefs.set(e, o);
 }, styles = new Map;
 
-const myComponentCss = "/*!@:host*/.sc-my-component-h{display:block}/*!@.wrapper .name*/.wrapper.sc-my-component .name.sc-my-component{font-weight:bold;color:\"#ffffff\"}";
+const myComponentCss = "/*!@:host*/.sc-my-component-h{display:block}/*!@.wrapper .name*/.wrapper.sc-my-component .name.sc-my-component{font-weight:bold;color:\"#ffffff\"}/*!@.wrapper .primary*/.wrapper.sc-my-component .primary.sc-my-component{color:red}/*!@.wrapper .secondary*/.wrapper.sc-my-component .secondary.sc-my-component{color:blue}";
 
 class MyComponent {
   constructor(hostRef) {
@@ -5711,6 +5711,7 @@ class MyComponent {
       this.clicked.emit();
     };
     this.firstName = undefined;
+    this.variant = 'primary';
   }
   /* eslint-disable require-await */
   /**
@@ -5725,7 +5726,7 @@ class MyComponent {
     console.log('sample listener event handler', event.target);
   }
   render() {
-    return (hAsync("div", { class: 'wrapper' }, hAsync("p", null, "Hello, World! I'm ", hAsync("span", { class: 'name' }, "My name iiss ", this.firstName)), hAsync("button", { onClick: this._buttonClick }, "Button")));
+    return (hAsync("div", { class: 'wrapper' }, hAsync("p", { class: 'greeting' }, "Hello, World! I'm ", hAsync("span", { class: 'name' }, this.firstName)), hAsync("button", { onClick: this._buttonClick, class: this.variant }, "Button")));
   }
   static get style() { return myComponentCss; }
   static get cmpMeta() { return {
@@ -5733,6 +5734,7 @@ class MyComponent {
     "$tagName$": "my-component",
     "$members$": {
       "firstName": [1, "first-name"],
+      "variant": [1],
       "sampleMethod": [64]
     },
     "$listeners$": [[0, "sample-listener", "sampleListenerHandler"]],

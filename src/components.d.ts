@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { InterfaceMyComponent } from "./components/my-component/my-component.d";
+export { InterfaceMyComponent } from "./components/my-component/my-component.d";
 export namespace Components {
     interface MyComponent {
         /**
@@ -15,6 +17,7 @@ export namespace Components {
           * Create a meaningful description for the method. This will be automatically rendered to the documentation.
          */
         "sampleMethod": () => Promise<void>;
+        "variant"?: InterfaceMyComponent['variant'];
     }
 }
 export interface MyComponentCustomEvent<T> extends CustomEvent<T> {
@@ -42,6 +45,7 @@ declare namespace LocalJSX {
           * Create a meaningful description for the event. This will be automatically rendered to the documentation.
          */
         "onMy-component_button-clicked"?: (event: MyComponentCustomEvent<void>) => void;
+        "variant"?: InterfaceMyComponent['variant'];
     }
     interface IntrinsicElements {
         "my-component": MyComponent;

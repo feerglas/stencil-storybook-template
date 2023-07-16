@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property    | Attribute    | Description                                                                                                              | Type     | Default     |
-| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------------------ | -------- | ----------- |
-| `firstName` | `first-name` | Create a meaningful description for the properties/attributes. This will be automatically rendered to the documentation. | `string` | `undefined` |
+| Property    | Attribute    | Description                                                                                                              | Type                       | Default     |
+| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------------------ | -------------------------- | ----------- |
+| `firstName` | `first-name` | Create a meaningful description for the properties/attributes. This will be automatically rendered to the documentation. | `string`                   | `undefined` |
+| `variant`   | `variant`    |                                                                                                                          | `"primary" \| "secondary"` | `'primary'` |
 
 
 ## Events
