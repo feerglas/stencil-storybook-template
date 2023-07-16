@@ -8,6 +8,7 @@ import {
   Method,
   Prop,
 } from '@stencil/core';
+import { InterfaceMyComponent } from './my-component.d';
 
 @Component({
   shadow: true,
@@ -24,6 +25,8 @@ export class MyComponent {
   @Prop() public firstName: string;
 
   // @Element() private _element!: HTMLElement;
+
+  @Prop() public variant?: InterfaceMyComponent['variant'] = 'primary';
 
   /**
    * Create a meaningful description for the event.
@@ -60,10 +63,11 @@ export class MyComponent {
   public render(): HTMLDivElement {
     return (
       <div class='wrapper'>
-        <p>Hello, World! I'm <span class='name'>My name iiss {this.firstName}</span></p>
+        <p class='greeting'>Hello, World! I'm <span class='name'>{this.firstName}</span></p>
 
         <button
           onClick={this._buttonClick}
+          class={this.variant}
         >Button</button>
       </div>
     );
