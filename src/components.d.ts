@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { InterfaceMyComponent } from "./components/my-component/my-component.d";
-export { InterfaceMyComponent } from "./components/my-component/my-component.d";
+import { InterfaceMyComponent } from "./components/my-component/my-component.custom.d";
+export { InterfaceMyComponent } from "./components/my-component/my-component.custom.d";
 export namespace Components {
     interface MyComponent {
         /**
