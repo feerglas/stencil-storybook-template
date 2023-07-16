@@ -17,11 +17,9 @@ export default {
   title: 'Components/MyComponent',
 };
 
-const template = (args: any): any => `<my-component first="${args.first}" middle="${args.middle}" last="${args.last}"></my-component>`;
+const template = (args: any): any => `<my-component first-name="${args.firstName}"></my-component>`;
 
 export const example = template.bind({});
 example.args = {
-  first: 'Winnie',
-  last: 'Pooh',
-  middle: 'The',
+  firstName: 'Winnie',
 };

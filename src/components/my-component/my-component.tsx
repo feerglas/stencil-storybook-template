@@ -8,7 +8,6 @@ import {
   Method,
   Prop,
 } from '@stencil/core';
-import format from '../../utils/utils';
 
 @Component({
   shadow: true,
@@ -22,17 +21,7 @@ export class MyComponent {
    * Create a meaningful description for the properties/attributes.
    * This will be automatically rendered to the documentation.
    */
-  @Prop() public first: string;
-
-  /**
-   * The middle name
-   */
-  @Prop() public middle: string;
-
-  /**
-   * The last name
-   */
-  @Prop() public last: string;
+  @Prop() public firstName: string;
 
   // @Element() private _element!: HTMLElement;
 
@@ -63,10 +52,6 @@ export class MyComponent {
     console.log('sample listener event handler', event.target);
   }
 
-  private _getText(): string {
-    return format(this.first, this.middle, this.last);
-  }
-
   private _buttonClick = (evt: any): void => {
     evt.preventDefault();
     this.clicked.emit();
@@ -75,7 +60,7 @@ export class MyComponent {
   public render(): HTMLDivElement {
     return (
       <div class='wrapper'>
-        <p>Hello, World! I'm <span class='name'>{this._getText()}</span></p>
+        <p>Hello, World! I'm <span class='name'>My name iiss {this.firstName}</span></p>
 
         <button
           onClick={this._buttonClick}

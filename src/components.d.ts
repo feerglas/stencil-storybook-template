@@ -10,15 +10,7 @@ export namespace Components {
         /**
           * Create a meaningful description for the properties/attributes. This will be automatically rendered to the documentation.
          */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+        "firstName": string;
         /**
           * Create a meaningful description for the method. This will be automatically rendered to the documentation.
          */
@@ -45,15 +37,7 @@ declare namespace LocalJSX {
         /**
           * Create a meaningful description for the properties/attributes. This will be automatically rendered to the documentation.
          */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+        "firstName"?: string;
         /**
           * Create a meaningful description for the event. This will be automatically rendered to the documentation.
          */

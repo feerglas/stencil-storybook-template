@@ -7,11 +7,9 @@
 
 ## Properties
 
-| Property | Attribute | Description                                                                                                              | Type     | Default     |
-| -------- | --------- | ------------------------------------------------------------------------------------------------------------------------ | -------- | ----------- |
-| `first`  | `first`   | Create a meaningful description for the properties/attributes. This will be automatically rendered to the documentation. | `string` | `undefined` |
-| `last`   | `last`    | The last name                                                                                                            | `string` | `undefined` |
-| `middle` | `middle`  | The middle name                                                                                                          | `string` | `undefined` |
+| Property    | Attribute    | Description                                                                                                              | Type     | Default     |
+| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------------------ | -------- | ----------- |
+| `firstName` | `first-name` | Create a meaningful description for the properties/attributes. This will be automatically rendered to the documentation. | `string` | `undefined` |
 
 
 ## Events
