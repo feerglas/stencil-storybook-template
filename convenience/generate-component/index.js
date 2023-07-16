@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs');
 const path = require('path');
+const projectConfig = require('../../project-config.js');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const config = {
   boilerplateComponentName: 'component',
   boilerplateDirectory: 'convenience/generate-component/boilerplate',
+  componentPrefix: projectConfig.componentPrefix,
   sourceDirectory: 'src/components',
 };
 
@@ -96,8 +98,8 @@ npm run generate my-component-name
   const targetDirectory = `${config.sourceDirectory}/${componentName}`;
 
   // make sure we have a dash in the name
-  if (componentName.indexOf('-') === -1) {
-    console.log('component name must be in kebab case: my-component-name');
+  if (componentName.indexOf(`${config.componentPrefix}-`) !== 0) {
+    console.log(`component name must be in kebab case and start with "${config.componentPrefix}" prefix, for example: ${config.componentPrefix}-component-name. This is the prefix you defined in the project-config.js file.`);
 
     return;
   }
