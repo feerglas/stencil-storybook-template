@@ -32,7 +32,7 @@
     "start:storybook": "storybook dev -p 6006",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate",
+    "generate": "node convenience/generate-component/index.js",
     "prepare": "husky install"
   },
   "dependencies": {
