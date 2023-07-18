@@ -40,6 +40,8 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.22.9",
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
     "@stencil/sass": "^3.0.4",
     "@storybook/addon-a11y": "^7.0.27",
     "@storybook/addon-essentials": "^7.0.27",
