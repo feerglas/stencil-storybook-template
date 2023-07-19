@@ -138,7 +138,7 @@ module.exports = {
     'no-useless-escape': 'error',
     'no-useless-return': 'error',
     'no-void': 'error',
-    'no-warning-comments': 'error',
+    'no-warning-comments': 'off',
     'no-with': 'error',
     'prefer-named-capture-group': 'error',
     'prefer-promise-reject-errors': 'error',

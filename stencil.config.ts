@@ -4,6 +4,8 @@ import eventSync from './stencil-build-helpers/rollup/event-sync';
 import projectConfig from './project-config';
 
 export const config: Config = {
+  globalScript: 'src/global/global.ts',
+  globalStyle: 'src/global/global.shared.scss',
   namespace: projectConfig.namespace,
   outputTargets: [
     {
@@ -28,7 +30,17 @@ export const config: Config = {
       type: 'www',
     },
   ],
-  plugins: [sass()],
+  plugins: [
+    sass({
+      injectGlobalPaths: [
+        'src/global/core/components/utilities.scss',
+        'src/global/functions.scss',
+        'src/global/mediaqueries.scss',
+        'src/global/mixins.scss',
+        'src/global/core/shared/variables.scss',
+      ],
+    }),
+  ],
   rollupPlugins: {
     before: [eventSync()],
   },

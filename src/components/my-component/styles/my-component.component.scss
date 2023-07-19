@@ -1,0 +1,33 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin, available
+// for shared and default mode
+@include host-component-properties;
+
+:host {
+  display: block;
+}
+
+.wrapper {
+  font-size: px-to-rem(28);
+
+  .name {
+    font-weight: bold;
+    color: "#ffffff";
+  }
+
+  .primary {
+    color: red;
+
+    @include mq($from: small) {
+      color: purple;
+    }
+  }
+
+  .secondary {
+    color: blue;
+
+    @include mq($from: medium) {
+      color: aqua;
+    }
+  }
+}

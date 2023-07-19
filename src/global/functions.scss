@@ -1,0 +1,9 @@
+@function px-to-rem($size, $negate:null) {
+  $multiplier: 1rem;
+
+  @if $negate {
+    $multiplier: -1rem;
+  }
+
+  @return calc(#{$size} / #{$components-base-font-size} * #{$multiplier});
+}

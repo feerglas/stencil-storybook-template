@@ -12,7 +12,10 @@ import { InterfaceMyComponent } from './my-component.custom.d';
 
 @Component({
   shadow: true,
-  styleUrl: 'my-component.scss',
+  styleUrls: {
+    default: 'styles/my-component.default.scss',
+    shared: 'styles/my-component.shared.scss',
+  },
   tag: 'my-component',
 })
 

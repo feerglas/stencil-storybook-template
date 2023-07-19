@@ -1,0 +1,23 @@
+// Here we list all globally defined and inheritable properties. Each component
+// inherits those through the CSS cascade by default as long as
+// main-components.css is referenced in the <head> of the app/site which consumes
+// the components
+
+// CSS properties which can not travel the shadow boundary but need to be defined
+// on each component are defined through %host-component-properties
+// in global/core/components/utilities.scss which each component needs to @extend
+@import "./../../mixins";
+
+html,
+:host {
+  @include text;
+}
+
+// TODO
+
+/*
+body,
+:host {
+  font-family: var(--typo-default-font-family);
+  color: var(--font-default-color);
+*/

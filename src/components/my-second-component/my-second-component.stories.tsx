@@ -2,7 +2,7 @@
 import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Decorator } from '@storybook/html';
-// import events from './__name__.events';
+// import events from './my-second-component.events';
 
 export default {
   decorators: [withActions as Decorator],
@@ -16,11 +16,11 @@ export default {
     },
   },
   tags: ['autodocs'],
-  title: 'Components/__nameUpperCase__',
+  title: 'Components/MySecondComponent',
 };
 
 // --- Template
-const template = (args: any): string => `<__name__ variant="${args.variant}" first-name="${args.firstName}"></__name__>`;
+const template = (args: any): string => `<my-second-component variant="${args.variant}" first-name="${args.firstName}"></my-second-component>`;
 
 // --- Arg types
 

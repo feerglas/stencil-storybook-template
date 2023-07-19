@@ -4948,7 +4948,55 @@ function hydrateFactory($stencilWindow, $stencilHydrateOpts, $stencilHydrateResu
 
 
 const NAMESPACE = 'my-webcomponents-bundle';
-const BUILD = /* my-webcomponents-bundle */ { allRenderFn: true, appendChildSlotFix: false, asyncLoading: true, attachStyles: true, cloneNodeFix: false, cmpDidLoad: false, cmpDidRender: false, cmpDidUnload: false, cmpDidUpdate: false, cmpShouldUpdate: false, cmpWillLoad: false, cmpWillRender: false, cmpWillUpdate: false, connectedCallback: false, constructableCSS: false, cssAnnotations: true, devTools: false, disconnectedCallback: false, element: false, event: true, hasRenderFn: true, hostListener: true, hostListenerTarget: false, hostListenerTargetBody: false, hostListenerTargetDocument: false, hostListenerTargetParent: false, hostListenerTargetWindow: false, hotModuleReplacement: false, hydrateClientSide: true, hydrateServerSide: true, hydratedAttribute: false, hydratedClass: true, isDebug: false, isDev: false, isTesting: false, lazyLoad: true, lifecycle: false, lifecycleDOMEvents: false, member: true, method: true, mode: false, observeAttribute: true, profile: false, prop: true, propBoolean: false, propMutable: false, propNumber: false, propString: true, reflect: false, scoped: false, scriptDataOpts: false, shadowDelegatesFocus: false, shadowDom: true, shadowDomShim: true, slot: false, slotChildNodesFix: false, slotRelocation: true, state: false, style: true, svg: false, taskQueue: true, updatable: true, vdomAttribute: true, vdomClass: true, vdomFunctional: false, vdomKey: false, vdomListener: true, vdomPropOrAttr: false, vdomRef: false, vdomRender: true, vdomStyle: false, vdomText: true, vdomXlink: false, watchCallback: false };
+const BUILD = /* my-webcomponents-bundle */ { allRenderFn: true, appendChildSlotFix: false, asyncLoading: true, attachStyles: true, cloneNodeFix: false, cmpDidLoad: false, cmpDidRender: false, cmpDidUnload: false, cmpDidUpdate: false, cmpShouldUpdate: false, cmpWillLoad: false, cmpWillRender: false, cmpWillUpdate: false, connectedCallback: false, constructableCSS: false, cssAnnotations: true, devTools: false, disconnectedCallback: false, element: false, event: true, hasRenderFn: true, hostListener: true, hostListenerTarget: false, hostListenerTargetBody: false, hostListenerTargetDocument: false, hostListenerTargetParent: false, hostListenerTargetWindow: false, hotModuleReplacement: false, hydrateClientSide: true, hydrateServerSide: true, hydratedAttribute: false, hydratedClass: true, isDebug: false, isDev: false, isTesting: false, lazyLoad: true, lifecycle: false, lifecycleDOMEvents: false, member: true, method: true, mode: true, observeAttribute: true, profile: false, prop: true, propBoolean: false, propMutable: false, propNumber: false, propString: true, reflect: false, scoped: false, scriptDataOpts: false, shadowDelegatesFocus: false, shadowDom: true, shadowDomShim: true, slot: false, slotChildNodesFix: false, slotRelocation: true, state: false, style: true, svg: false, taskQueue: true, updatable: true, vdomAttribute: true, vdomClass: true, vdomFunctional: false, vdomKey: false, vdomListener: true, vdomPropOrAttr: false, vdomRef: false, vdomRender: true, vdomStyle: false, vdomText: true, vdomXlink: false, watchCallback: false };
+
+/*
+ * Define component mode
+ * ---
+ * Pick component CSS file based on globally (<html> element) defined mode
+ * (default|shared) where default is encapsulated/selfcontaining. Inspired by
+ * Ionic framework @see link below. Could at one point also be used to test out
+ * new designs with a `next` mode.
+ */
+let defaultMode;
+// TODO: get value from /project-config.js
+const componentsPrefix = 'my';
+const initialize = () => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+  const doc = window.document;
+  /*
+   * We see if the mode was set as an attribute on <html>
+   * which could have been set by the user, or by pre-rendering
+   */
+  defaultMode = (doc.documentElement.getAttribute('mode') === 'shared'
+    ? 'shared'
+    : 'default');
+  const isProjectElement = (elm) => elm.tagName && elm.tagName.startsWith(`${componentsPrefix}-`);
+  const isAllowedProjectModeValue = (elmMode) => [
+    'default',
+    'shared',
+  ].includes(elmMode);
+  setMode((elm) => {
+    while (elm) {
+      const elmMode = elm.mode || elm.getAttribute('mode');
+      if (elmMode) {
+        if (isAllowedProjectModeValue(elmMode)) {
+          return elmMode;
+        }
+        else if (isProjectElement(elm)) {
+          console.warn(`Invalid Project mode: "${elmMode}", expected: "default" or "shared"`);
+        }
+      }
+      // eslint-disable-next-line no-param-reassign
+      elm = elm.parentElement;
+    }
+    return defaultMode;
+  });
+};
+
+const globalScripts = initialize;
 
 function queryNonceMetaTagContent(e) {
  var t, o, n;
@@ -5063,7 +5111,7 @@ function hydrateApp(e, t, o, n, s) {
     return Array.from(t).map(waitingOnElementMsg);
    }(d)}`);
   }), t.timeout), plt.$resourcesUrl$ = new URL(t.resourcesUrl || "./", doc.baseURI).href, 
-  function e(t) {
+  globalScripts(), function e(t) {
    if (null != t && 1 === t.nodeType) {
     f(t);
     const o = t.children;
@@ -5211,7 +5259,7 @@ const createTime = (e, t = "") => {
   const o = e.nodeValue.split(".");
   "o" === o[0] && (t.set(o[1] + "." + o[2], e), e.nodeValue = "", e["s-en"] = o[3]);
  }
-}, parsePropertyValue = (e, t) => null == e || isComplexType(e) ? e : 1 & t ? String(e) : e, getElement = e => getHostRef(e).$hostElement$ , createEvent = (e, t, o) => {
+}, computeMode = e => modeResolutionChain.map((t => t(e))).find((e => !!e)), setMode = e => modeResolutionChain.push(e), parsePropertyValue = (e, t) => null == e || isComplexType(e) ? e : 1 & t ? String(e) : e, getElement = e => getHostRef(e).$hostElement$ , createEvent = (e, t, o) => {
  const n = getElement(e);
  return {
   emit: e => (emitEvent(n, t, {
@@ -5229,7 +5277,7 @@ const createTime = (e, t = "") => {
  n = t, styles.set(e, n);
 }, addStyle = (e, t, o) => {
  var n;
- const s = getScopeId(t), l = styles.get(s);
+ const s = getScopeId(t, o), l = styles.get(s);
  if (e = 11 === e.nodeType ? e : doc, l) if ("string" == typeof l) {
   e = e.head || e;
   let t, o = rootAppliedStyles.get(e);
@@ -5245,11 +5293,11 @@ const createTime = (e, t = "") => {
  }
  return s;
 }, attachStyles = e => {
- const t = e.$cmpMeta$, o = e.$hostElement$, n = t.$flags$, s = createTime("attachStyles", t.$tagName$), l = addStyle(o.getRootNode(), t);
+ const t = e.$cmpMeta$, o = e.$hostElement$, n = t.$flags$, s = createTime("attachStyles", t.$tagName$), l = addStyle(o.getRootNode(), t, e.$modeName$);
  10 & n && (o["s-sc"] = l, 
  o.classList.add(l + "-h"), BUILD.scoped  ), 
  s();
-}, getScopeId = (e, t) => "sc-" + (e.$tagName$), setAccessor = (e, t, o, n, s, l) => {
+}, getScopeId = (e, t) => "sc-" + (t && 32 & e.$flags$ ? e.$tagName$ + "-" + t : e.$tagName$), setAccessor = (e, t, o, n, s, l) => {
  if (o !== n) {
   let a = isMemberInElement(e, t), r = t.toLowerCase();
   if ("class" === t) {
@@ -5509,7 +5557,8 @@ const callRender = (e, t, o) => {
   }
   if (s.style) {
    let n = s.style;
-   const l = getScopeId(o);
+   "string" != typeof n && (n = n[t.$modeName$ = computeMode(e)], t.$modeName$ && e.setAttribute("s-mode", t.$modeName$));
+   const l = getScopeId(o, t.$modeName$);
    if (!styles.has(l)) {
     const e = createTime("registerStyles", o.$tagName$);
     registerStyle(l, n), e();
@@ -5698,9 +5747,11 @@ const cmpModules = new Map, getModule = e => {
  };
  return o.$onInstancePromise$ = new Promise((e => o.$onInstanceResolve$ = e)), o.$onReadyPromise$ = new Promise((e => o.$onReadyResolve$ = e)), 
  e["s-p"] = [], e["s-rc"] = [], addHostEventListeners(e, o, t.$listeners$), hostRefs.set(e, o);
-}, styles = new Map;
+}, styles = new Map, modeResolutionChain = [];
 
-const myComponentCss = "/*!@:host*/.sc-my-component-h{display:block}/*!@.wrapper .name*/.wrapper.sc-my-component .name.sc-my-component{font-weight:bold;color:\"#ffffff\"}/*!@.wrapper .primary*/.wrapper.sc-my-component .primary.sc-my-component{color:red}/*!@.wrapper .secondary*/.wrapper.sc-my-component .secondary.sc-my-component{color:blue}";
+const myComponentDefaultCss = "/*!@*,\n::before,\n::after*/*.sc-my-component-default,.sc-my-component-default::before,.sc-my-component-default::after{box-sizing:border-box}/*!@:host*/.sc-my-component-default-h{display:block;padding:0;margin:0;background:transparent;border:0;appearance:none;-moz-appearance:none;-webkit-appearance:none}/*!@:host*/.sc-my-component-default-h{display:block}/*!@.wrapper*/.wrapper.sc-my-component-default{font-size:calc(28 / 16 * 1rem)}/*!@.wrapper .name*/.wrapper.sc-my-component-default .name.sc-my-component-default{font-weight:bold;color:\"#ffffff\"}/*!@.wrapper .primary*/.wrapper.sc-my-component-default .primary.sc-my-component-default{color:red}@media (min-width: calc(calc(600 * 1rem) / 16)){/*!@.wrapper .primary*/.wrapper.sc-my-component-default .primary.sc-my-component-default{color:purple}}/*!@.wrapper .secondary*/.wrapper.sc-my-component-default .secondary.sc-my-component-default{color:blue}@media (min-width: calc(calc(840 * 1rem) / 16)){/*!@.wrapper .secondary*/.wrapper.sc-my-component-default .secondary.sc-my-component-default{color:aqua}}";
+
+const myComponentSharedCss = "/*!@*,\n::before,\n::after*/*.sc-my-component-shared,.sc-my-component-shared::before,.sc-my-component-shared::after{box-sizing:border-box}/*!@:host*/.sc-my-component-shared-h{display:block;padding:0;margin:0;background:transparent;border:0;appearance:none;-moz-appearance:none;-webkit-appearance:none}/*!@:host*/.sc-my-component-shared-h{display:block}/*!@.wrapper*/.wrapper.sc-my-component-shared{font-size:calc(28 / 16 * 1rem)}/*!@.wrapper .name*/.wrapper.sc-my-component-shared .name.sc-my-component-shared{font-weight:bold;color:\"#ffffff\"}/*!@.wrapper .primary*/.wrapper.sc-my-component-shared .primary.sc-my-component-shared{color:red}@media (min-width: calc(calc(600 * 1rem) / 16)){/*!@.wrapper .primary*/.wrapper.sc-my-component-shared .primary.sc-my-component-shared{color:purple}}/*!@.wrapper .secondary*/.wrapper.sc-my-component-shared .secondary.sc-my-component-shared{color:blue}@media (min-width: calc(calc(840 * 1rem) / 16)){/*!@.wrapper .secondary*/.wrapper.sc-my-component-shared .secondary.sc-my-component-shared{color:aqua}}";
 
 class MyComponent {
   constructor(hostRef) {
@@ -5728,10 +5779,61 @@ class MyComponent {
   render() {
     return (hAsync("div", { class: 'wrapper' }, hAsync("p", { class: 'greeting' }, "Hello, World! I'm ", hAsync("span", { class: 'name' }, this.firstName)), hAsync("button", { onClick: this._buttonClick, class: this.variant }, "Button")));
   }
-  static get style() { return myComponentCss; }
+  static get style() { return {
+    default: myComponentDefaultCss,
+    shared: myComponentSharedCss
+  }; }
   static get cmpMeta() { return {
-    "$flags$": 9,
+    "$flags$": 41,
     "$tagName$": "my-component",
+    "$members$": {
+      "firstName": [1, "first-name"],
+      "variant": [1],
+      "sampleMethod": [64]
+    },
+    "$listeners$": [[0, "sample-listener", "sampleListenerHandler"]],
+    "$lazyBundleId$": "-",
+    "$attrsToReflect$": []
+  }; }
+}
+
+const mySecondComponentDefaultCss = "/*!@*,\n::before,\n::after*/*.sc-my-second-component-default,.sc-my-second-component-default::before,.sc-my-second-component-default::after{box-sizing:border-box}/*!@:host*/.sc-my-second-component-default-h{display:block;padding:0;margin:0;background:transparent;border:0;appearance:none;-moz-appearance:none;-webkit-appearance:none}/*!@:host*/.sc-my-second-component-default-h{display:block}/*!@.wrapper*/.wrapper.sc-my-second-component-default{font-size:calc(28 / 16 * 1rem)}/*!@.wrapper .name*/.wrapper.sc-my-second-component-default .name.sc-my-second-component-default{font-weight:bold;color:\"#ffffff\"}/*!@.wrapper .primary*/.wrapper.sc-my-second-component-default .primary.sc-my-second-component-default{color:red}@media (min-width: calc(calc(600 * 1rem) / 16)){/*!@.wrapper .primary*/.wrapper.sc-my-second-component-default .primary.sc-my-second-component-default{color:purple}}/*!@.wrapper .secondary*/.wrapper.sc-my-second-component-default .secondary.sc-my-second-component-default{color:blue}@media (min-width: calc(calc(840 * 1rem) / 16)){/*!@.wrapper .secondary*/.wrapper.sc-my-second-component-default .secondary.sc-my-second-component-default{color:aqua}}";
+
+const mySecondComponentSharedCss = "/*!@*,\n::before,\n::after*/*.sc-my-second-component-shared,.sc-my-second-component-shared::before,.sc-my-second-component-shared::after{box-sizing:border-box}/*!@:host*/.sc-my-second-component-shared-h{display:block;padding:0;margin:0;background:transparent;border:0;appearance:none;-moz-appearance:none;-webkit-appearance:none}/*!@:host*/.sc-my-second-component-shared-h{display:block}/*!@.wrapper*/.wrapper.sc-my-second-component-shared{font-size:calc(28 / 16 * 1rem)}/*!@.wrapper .name*/.wrapper.sc-my-second-component-shared .name.sc-my-second-component-shared{font-weight:bold;color:\"#ffffff\"}/*!@.wrapper .primary*/.wrapper.sc-my-second-component-shared .primary.sc-my-second-component-shared{color:red}@media (min-width: calc(calc(600 * 1rem) / 16)){/*!@.wrapper .primary*/.wrapper.sc-my-second-component-shared .primary.sc-my-second-component-shared{color:purple}}/*!@.wrapper .secondary*/.wrapper.sc-my-second-component-shared .secondary.sc-my-second-component-shared{color:blue}@media (min-width: calc(calc(840 * 1rem) / 16)){/*!@.wrapper .secondary*/.wrapper.sc-my-second-component-shared .secondary.sc-my-second-component-shared{color:aqua}}";
+
+class MySecondComponent {
+  constructor(hostRef) {
+    registerInstance(this, hostRef);
+    this.clicked = createEvent(this, "my-second-component_button-clicked", 7);
+    this._buttonClick = (evt) => {
+      evt.preventDefault();
+      this.clicked.emit();
+    };
+    this.firstName = undefined;
+    this.variant = 'primary';
+  }
+  /* eslint-disable require-await */
+  /**
+   * Create a meaningful description for the method.
+   * This will be automatically rendered to the documentation.
+   */
+  async sampleMethod() {
+    console.log('method called');
+  }
+  /* eslint-enable require-await */
+  sampleListenerHandler(event) {
+    console.log('sample listener event handler', event.target);
+  }
+  render() {
+    return (hAsync("div", { class: 'wrapper' }, hAsync("p", { class: 'greeting' }, "Hello, World! I'm ", hAsync("span", { class: 'name' }, this.firstName)), hAsync("button", { onClick: this._buttonClick, class: this.variant }, "Button")));
+  }
+  static get style() { return {
+    default: mySecondComponentDefaultCss,
+    shared: mySecondComponentSharedCss
+  }; }
+  static get cmpMeta() { return {
+    "$flags$": 41,
+    "$tagName$": "my-second-component",
     "$members$": {
       "firstName": [1, "first-name"],
       "variant": [1],
@@ -5745,6 +5847,7 @@ class MyComponent {
 
 registerComponents([
   MyComponent,
+  MySecondComponent,
 ]);
 
 exports.hydrateApp = hydrateApp;

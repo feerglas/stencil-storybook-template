@@ -8,18 +8,18 @@ import {
   Method,
   Prop,
 } from '@stencil/core';
-import { Interface__nameUpperCase__ } from './__name__.custom.d';
+import { InterfaceMySecondComponent } from './my-second-component.custom.d';
 
 @Component({
   shadow: true,
   styleUrls: {
-    default: 'styles/__name__.default.scss',
-    shared: 'styles/__name__.shared.scss',
+    default: 'styles/my-second-component.default.scss',
+    shared: 'styles/my-second-component.shared.scss',
   },
-  tag: '__name__',
+  tag: 'my-second-component',
 })
 
-export class __nameUpperCase__ {
+export class MySecondComponent {
 
   /**
    * Create a meaningful description for the properties/attributes.
@@ -29,7 +29,7 @@ export class __nameUpperCase__ {
 
   // @Element() private _element!: HTMLElement;
 
-  @Prop() public variant?: Interface__nameUpperCase__['variant'] = 'primary';
+  @Prop() public variant?: InterfaceMySecondComponent['variant'] = 'primary';
 
   /**
    * Create a meaningful description for the event.
@@ -38,7 +38,7 @@ export class __nameUpperCase__ {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: '__name___button-clicked',
+    eventName: 'my-second-component_button-clicked',
   })
   public clicked: EventEmitter<void>;
 

@@ -1,0 +1,11 @@
+// *****************************************************************************
+// Important
+// -
+// Changes in global.scss and from global.scss referenced .scss files only
+// get compiled through a Stencil build. Restarting (stopping/starting) the build
+// is necessary so the changes get reflected in the global CSS (main-components.css)
+// *****************************************************************************
+
+// Lists all globally defined and inheritable properties. Each component inherits
+// those through the CSS cascade by default
+@import "core/shared/inherited";

@@ -1,0 +1,39 @@
+/* stylelint-disable no-invalid-position-at-import-rule */
+
+// *****************************************************************************
+// Important
+// -
+// Changes in global.scss and from global.scss referenced .scss files only
+// get compiled through a Stencil build. Restarting (stopping/starting) the build
+// is necessary so the changes get reflected in the global CSS (main-components.css)
+// *****************************************************************************
+
+// Core variables, are always needed
+
+/*
+:host {
+  // Core variables for :host context
+  @include components-css-vars;
+}
+*/
+
+// Theming, override core variables and enable theme/mode through uncommenting
+// whished theme/mode
+// @import "theme/mode--dark/variables.scss";
+// @import "theme/mode--compact/variables.scss";
+// @import "theme/mode--dark-compact.variables.scss";
+
+// :host {
+  // @include theme-mode--dark-variables;
+  // @include theme-mode--compact-variables;
+  // @include theme-mode--dark-compact-variables;
+// }
+
+// Font face declaration
+// -
+// Since font-face declarations can not yet be made from within the shadow root
+// of a web component (https://bugs.chromium.org/p/chromium/issues/detail?id=336876),
+// the font-face declaration has to be made outside of the shadow DOM.
+// See `.storybook/preview-head.html` as an example.
+
+@import "global";
