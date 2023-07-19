@@ -4,5 +4,8 @@
   ],
   "rules": {
     "scss/dollar-variable-pattern": null
-  }
+  },
+  "ignoreFiles": [
+    "convenience/generate-component/boilerplate/styles/*.scss"
+  ]
 }
