@@ -6,9 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceMyComponent } from "./components/my-component/my-component.custom.d";
-import { InterfaceMySecondComponent } from "./components/my-second-component/my-second-component.custom.d";
 export { InterfaceMyComponent } from "./components/my-component/my-component.custom.d";
-export { InterfaceMySecondComponent } from "./components/my-second-component/my-second-component.custom.d";
 export namespace Components {
     interface MyComponent {
         /**
@@ -21,25 +19,10 @@ export namespace Components {
         "sampleMethod": () => Promise<void>;
         "variant"?: InterfaceMyComponent['variant'];
     }
-    interface MySecondComponent {
-        /**
-          * Create a meaningful description for the properties/attributes. This will be automatically rendered to the documentation.
-         */
-        "firstName": string;
-        /**
-          * Create a meaningful description for the method. This will be automatically rendered to the documentation.
-         */
-        "sampleMethod": () => Promise<void>;
-        "variant"?: InterfaceMySecondComponent['variant'];
-    }
 }
 export interface MyComponentCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLMyComponentElement;
-}
-export interface MySecondComponentCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLMySecondComponentElement;
 }
 declare global {
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
@@ -48,15 +31,8 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
-    interface HTMLMySecondComponentElement extends Components.MySecondComponent, HTMLStencilElement {
-    }
-    var HTMLMySecondComponentElement: {
-        prototype: HTMLMySecondComponentElement;
-        new (): HTMLMySecondComponentElement;
-    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
-        "my-second-component": HTMLMySecondComponentElement;
     }
 }
 declare namespace LocalJSX {
@@ -71,20 +47,8 @@ declare namespace LocalJSX {
         "onMy-component_button-clicked"?: (event: MyComponentCustomEvent<void>) => void;
         "variant"?: InterfaceMyComponent['variant'];
     }
-    interface MySecondComponent {
-        /**
-          * Create a meaningful description for the properties/attributes. This will be automatically rendered to the documentation.
-         */
-        "firstName"?: string;
-        /**
-          * Create a meaningful description for the event. This will be automatically rendered to the documentation.
-         */
-        "onMy-second-component_button-clicked"?: (event: MySecondComponentCustomEvent<void>) => void;
-        "variant"?: InterfaceMySecondComponent['variant'];
-    }
     interface IntrinsicElements {
         "my-component": MyComponent;
-        "my-second-component": MySecondComponent;
     }
 }
 export { LocalJSX as JSX };
@@ -92,7 +56,6 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
-            "my-second-component": LocalJSX.MySecondComponent & JSXBase.HTMLAttributes<HTMLMySecondComponentElement>;
         }
     }
 }

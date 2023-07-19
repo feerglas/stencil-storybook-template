@@ -5797,57 +5797,8 @@ class MyComponent {
   }; }
 }
 
-const mySecondComponentDefaultCss = "/*!@*,\n::before,\n::after*/*.sc-my-second-component-default,.sc-my-second-component-default::before,.sc-my-second-component-default::after{box-sizing:border-box}/*!@:host*/.sc-my-second-component-default-h{display:block;padding:0;margin:0;background:transparent;border:0;appearance:none;-moz-appearance:none;-webkit-appearance:none}/*!@:host*/.sc-my-second-component-default-h{display:block}/*!@.wrapper*/.wrapper.sc-my-second-component-default{font-size:calc(28 / 16 * 1rem)}/*!@.wrapper .name*/.wrapper.sc-my-second-component-default .name.sc-my-second-component-default{font-weight:bold;color:\"#ffffff\"}/*!@.wrapper .primary*/.wrapper.sc-my-second-component-default .primary.sc-my-second-component-default{color:red}@media (min-width: calc(calc(600 * 1rem) / 16)){/*!@.wrapper .primary*/.wrapper.sc-my-second-component-default .primary.sc-my-second-component-default{color:purple}}/*!@.wrapper .secondary*/.wrapper.sc-my-second-component-default .secondary.sc-my-second-component-default{color:blue}@media (min-width: calc(calc(840 * 1rem) / 16)){/*!@.wrapper .secondary*/.wrapper.sc-my-second-component-default .secondary.sc-my-second-component-default{color:aqua}}";
-
-const mySecondComponentSharedCss = "/*!@*,\n::before,\n::after*/*.sc-my-second-component-shared,.sc-my-second-component-shared::before,.sc-my-second-component-shared::after{box-sizing:border-box}/*!@:host*/.sc-my-second-component-shared-h{display:block;padding:0;margin:0;background:transparent;border:0;appearance:none;-moz-appearance:none;-webkit-appearance:none}/*!@:host*/.sc-my-second-component-shared-h{display:block}/*!@.wrapper*/.wrapper.sc-my-second-component-shared{font-size:calc(28 / 16 * 1rem)}/*!@.wrapper .name*/.wrapper.sc-my-second-component-shared .name.sc-my-second-component-shared{font-weight:bold;color:\"#ffffff\"}/*!@.wrapper .primary*/.wrapper.sc-my-second-component-shared .primary.sc-my-second-component-shared{color:red}@media (min-width: calc(calc(600 * 1rem) / 16)){/*!@.wrapper .primary*/.wrapper.sc-my-second-component-shared .primary.sc-my-second-component-shared{color:purple}}/*!@.wrapper .secondary*/.wrapper.sc-my-second-component-shared .secondary.sc-my-second-component-shared{color:blue}@media (min-width: calc(calc(840 * 1rem) / 16)){/*!@.wrapper .secondary*/.wrapper.sc-my-second-component-shared .secondary.sc-my-second-component-shared{color:aqua}}";
-
-class MySecondComponent {
-  constructor(hostRef) {
-    registerInstance(this, hostRef);
-    this.clicked = createEvent(this, "my-second-component_button-clicked", 7);
-    this._buttonClick = (evt) => {
-      evt.preventDefault();
-      this.clicked.emit();
-    };
-    this.firstName = undefined;
-    this.variant = 'primary';
-  }
-  /* eslint-disable require-await */
-  /**
-   * Create a meaningful description for the method.
-   * This will be automatically rendered to the documentation.
-   */
-  async sampleMethod() {
-    console.log('method called');
-  }
-  /* eslint-enable require-await */
-  sampleListenerHandler(event) {
-    console.log('sample listener event handler', event.target);
-  }
-  render() {
-    return (hAsync("div", { class: 'wrapper' }, hAsync("p", { class: 'greeting' }, "Hello, World! I'm ", hAsync("span", { class: 'name' }, this.firstName)), hAsync("button", { onClick: this._buttonClick, class: this.variant }, "Button")));
-  }
-  static get style() { return {
-    default: mySecondComponentDefaultCss,
-    shared: mySecondComponentSharedCss
-  }; }
-  static get cmpMeta() { return {
-    "$flags$": 41,
-    "$tagName$": "my-second-component",
-    "$members$": {
-      "firstName": [1, "first-name"],
-      "variant": [1],
-      "sampleMethod": [64]
-    },
-    "$listeners$": [[0, "sample-listener", "sampleListenerHandler"]],
-    "$lazyBundleId$": "-",
-    "$attrsToReflect$": []
-  }; }
-}
-
 registerComponents([
   MyComponent,
-  MySecondComponent,
 ]);
 
 exports.hydrateApp = hydrateApp;
